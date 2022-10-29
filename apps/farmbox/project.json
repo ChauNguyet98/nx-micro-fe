@@ -1,0 +1,122 @@
+{
+  "name": "farmbox",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/farmbox/src",
+  "prefix": "farmbox",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/farmbox",
+        "index": "apps/farmbox/src/index.html",
+        "main": "apps/farmbox/src/main.ts",
+        "polyfills": "apps/farmbox/src/polyfills.ts",
+        "tsConfig": "apps/farmbox/tsconfig.app.json",
+        "assets": [
+          "apps/farmbox/src/favicon.ico",
+          "apps/farmbox/src/assets",
+          {
+            "glob": "**/*",
+            "input": "src/assets/images",
+            "output": "/assets/images"
+          }
+        ],
+        "styles": ["apps/farmbox/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/farmbox/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/farmbox/src/environments/environment.ts",
+              "with": "apps/farmbox/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/farmbox/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "farmbox:build:production"
+        },
+        "development": {
+          "browserTarget": "farmbox:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4202,
+        "publicHost": "http://localhost:4202"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "farmbox:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/farmbox/**/*.ts", "apps/farmbox/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/farmbox/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "farmbox:build",
+        "port": 4202
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "farmbox:build:development"
+        },
+        "production": {
+          "buildTarget": "farmbox:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

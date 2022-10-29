@@ -1,0 +1,120 @@
+{
+  "name": "iot-platform",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/iot-platform/src",
+  "prefix": "iot-platform",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/iot-platform",
+        "index": "apps/iot-platform/src/index.html",
+        "main": "apps/iot-platform/src/main.ts",
+        "polyfills": "apps/iot-platform/src/polyfills.ts",
+        "tsConfig": "apps/iot-platform/tsconfig.app.json",
+        "assets": [
+          "apps/iot-platform/src/favicon.ico",
+          "apps/iot-platform/src/assets"
+        ],
+        "styles": ["apps/iot-platform/src/styles.css"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/iot-platform/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/iot-platform/src/environments/environment.ts",
+              "with": "apps/iot-platform/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/iot-platform/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "iot-platform:build:production"
+        },
+        "development": {
+          "browserTarget": "iot-platform:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "iot-platform:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/iot-platform/**/*.ts",
+          "apps/iot-platform/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/iot-platform/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "iot-platform:build",
+        "port": 4201
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "iot-platform:build:development"
+        },
+        "production": {
+          "buildTarget": "iot-platform:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

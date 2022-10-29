@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nx-micro-fe/auth": ["libs/auth/src/index.ts"],
+      "@nx-micro-fe/farmbox-main": ["libs/farmbox-main/src/index.ts"],
+      "@nx-micro-fe/iot-platform-main": ["libs/iot-platform-main/src/index.ts"],
+      "@nx-micro-fe/nyp-main": ["libs/nyp-main/src/index.ts"],
+      "@nx-micro-fe/shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@nx-micro-fe/shared/utils": ["libs/shared/utils/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
