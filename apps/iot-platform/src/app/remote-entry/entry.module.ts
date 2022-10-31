@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthModule } from '@nx-micro-fe/auth';
 
 import { RemoteEntryComponent } from './entry.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { remoteRoutes } from './entry.routes';
 
 @NgModule({
-  declarations: [RemoteEntryComponent, NxWelcomeComponent],
+  declarations: [RemoteEntryComponent],
   imports: [CommonModule, RouterModule.forChild(remoteRoutes)],
   providers: [],
 })

@@ -5,6 +5,23 @@
   "sourceRoot": "libs/nyp-main/src",
   "prefix": "nyp",
   "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/nyp-main/ng-package.json",
+        "tailwindConfig": "libs/nyp-main/tailwind.config.js"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/nyp-main/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/nyp-main/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

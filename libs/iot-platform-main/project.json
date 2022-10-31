@@ -5,6 +5,23 @@
   "sourceRoot": "libs/iot-platform-main/src",
   "prefix": "iot-platform",
   "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/iot-platform-main/ng-package.json",
+        "tailwindConfig": "libs/iot-platform-main/tailwind.config.js"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/iot-platform-main/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/iot-platform-main/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
